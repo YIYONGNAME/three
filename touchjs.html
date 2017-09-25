@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  		<meta name="apple-mobile-web-app-capable" content="yes">
+  		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			#a1{
+				width: 100px;
+				height: 100px;
+				background: #FFFF00;
+				position:absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="a1">
+			
+		</div>
+	</body>
+</html>
+<script>
+	document.addEventListener('DOMContentLoaded',function(){
+	
+		
+		var oDiv=document.querySelector("#a1");
+		var x=oDiv.offsetLeft;
+		var y=oDiv.offsetTop;
+		oDiv.addEventListener('touchstart',function(ev){
+			var disx=ev.targetTouches[0].clientX-x;
+			var disy=ev.targetTouches[0].clientY-y;
+			document.addEventListener('touchmove',fuMove,false);
+			function fuMove(ev){
+				x=ev.targetTouches[0].clientX-disx;
+				y=ev.targetTouches[0].clientY-disy;
+				oDiv.style.webkitTransform='translate3d('+x+'px,'+y+'px,0px)'
+			}
+			document.addEventListener('touchend',fuUp,false);
+			function fuUp(){
+				document.removeEventListener('touchmove',fuMove,false);
+				document.removeEventListener('touchmove',fuUp,false);
+			}
+			ev.preventDefault();
+			
+		},false)
+		
+	},false)
+</script>
